@@ -1,0 +1,19 @@
+<h1><%= @article.title %> Comments</h1>
+
+<p id="notice"><%= notice %></p>
+
+<ul>
+  <% @comments.each do |comment| %>
+    <li>
+        <%= comment.created_at.strftime("%H:%M%P %d-%m-%Y")%>
+        <%= comment.user.username %> wrote a comment to this article. 
+        <% if comment.accepted %>
+          Accepted! <%= link_to 'Click here to inspect.', article_comment_path(@article, comment) %>
+        <% else %>
+          <%= link_to 'Click here to accept it.', article_comment_path(@article, comment) %>
+        <% end %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to 'Back', dashboard_path %>

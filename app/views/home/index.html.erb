@@ -1,0 +1,12 @@
+<h1>Mediumish Home Page</h1>
+
+<p id="notice"><%= notice %></p>
+
+<hr>
+
+<% @articles.each do |article| %>
+  <p><%=link_to article.title, article_path(article)%> by 
+  <%= link_to article.user.username, profile_path(article.user) %>, 
+  <%= article.created_at.strftime("%d-%m-%Y") %></p>
+  <hr>
+<% end %>

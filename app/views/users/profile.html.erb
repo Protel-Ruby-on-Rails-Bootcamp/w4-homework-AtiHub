@@ -1,0 +1,16 @@
+<h1><%= @user.username %>'s Profile</h1>
+
+<p>Username: <%= @user.username %></p>
+<p>Email: <%= @user.email %></p>
+<p>Member since: <%= @user.created_at.strftime("%Y-%m-%d") %></p>
+
+<h3><%= @user.username %>'s Articles:</h3>
+
+<hr>
+
+<% @articles.each do |article| %>
+  <p><%=link_to article.title, article_path(article)%> by 
+  <%= article.user.username %>, 
+  <%= article.created_at.strftime("%d-%m-%Y") %></p>
+  <hr>
+<% end %>

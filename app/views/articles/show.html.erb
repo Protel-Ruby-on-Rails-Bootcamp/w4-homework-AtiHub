@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= @article.title %></h1>
+
+<p>
+  <strong>Author:</strong>
+  <%= @article.user.username %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @article.content %>
+</p>
+
+<hr>
+
+<% if @comments.empty? %>
+  There are no comments for this article.
+  <hr>
+<% else %>
+  <h2>Comments</h2>
+  <hr>
+  <% @comments.each do |comment| %>
+    <p>
+      <strong>Title:</strong> <%= comment.title %>, <strong>Content:</strong> <%= comment.content %>
+    </p>
+    <p>
+      <strong>Written By:</strong> <%= comment.user.username %>
+    </p>
+    <hr>
+  <% end %>
+<% end %>
+
+<% unless @article.user == current_user%>
+
+  <h3>Add a comment</h3>
+
+  <%= form_with model: [@article, @article.comments.build] do |form| %>
+    <p>
+      <%= form.label :title %>
+      <%= form.text_field :title %>
+    </p>
+    <p>
+      <%= form.label :content %>
+      <%= form.text_area :content %>
+    </p>
+    <p>
+      <%= form.submit %>
+    </p>
+  <% end %>
+
+<% end %>
+
+<%= link_to 'Back', :back %>

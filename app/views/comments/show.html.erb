@@ -1,0 +1,17 @@
+<h1><%= @comment.article.title %> Article Comment</h1>
+<p>
+  <strong>Title:</strong>
+  <%= @comment.title %>
+</p>
+<p>
+  <strong>Content:</strong>
+  <%= @comment.content %>
+</p>
+
+<p>
+  <strong>Written By:</strong>
+  <%= @comment.user.username %>
+</p>
+
+<%= link_to 'Accept', accept_article_comment_path(@comment.article, @comment), method: :patch %>
+<%= link_to 'Back', :back %>

@@ -1,0 +1,56 @@
+<h1>Dashboard</h1>
+
+<p id="notice"><%= notice %></p>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Content</th>
+      <th>Public</th>
+      <th>Created By</th>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @articles.each do |article| %>
+      <tr>
+        <td><%= article.title %></td>
+        <td><%= article.content %></td>
+        <td><%= article.public %></td>
+        <td><%= article.user.username %></td>
+        <td><%= link_to "#{article.comments.count} Comments", article_comments_path(article) %></td>
+        <td><%= link_to 'Show', article %></td>
+        <td><%= link_to 'Edit', edit_article_path(article) %></td>
+        <td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Article', new_article_path %>
+
+<% unless @comments.empty? %>
+
+  <hr>
+
+  <h3>New Comments</h3>
+
+  <ul>
+    <% @comments.each do |comment| %>
+      <li>
+          <%= comment.created_at.strftime("%H:%M%P %d-%m-%Y")%>
+          <%= comment.user.username %> wrote a comment to this article. 
+          <% if comment.accepted %>
+            Accepted! <%= link_to 'Click here to inspect.', article_comment_path(comment.article, comment) %>
+          <% else %>
+            <%= link_to 'Click here to accept it.', article_comment_path(comment.article, comment) %>
+          <% end %>
+      </li>
+    <% end %>
+  </ul>
+
+  <hr>
+
+<% end %>
