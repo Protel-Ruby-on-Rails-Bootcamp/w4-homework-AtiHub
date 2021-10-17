@@ -17,7 +17,7 @@
     <% @articles.each do |article| %>
       <tr>
         <td><%= article.title %></td>
-        <td><%= article.content %></td>
+        <td><%= article.content.truncate(100) %></td>
         <td><%= article.public %></td>
         <td><%= article.user.username %></td>
         <td><%= link_to "#{article.comments.count} Comments", article_comments_path(article) %></td>
