@@ -4,6 +4,13 @@
 <p>Email: <%= @user.email %></p>
 <p>Member since: <%= @user.created_at.strftime("%Y-%m-%d") %></p>
 
+<b>Following(<%= @user.following.count %>)</b>
+<b>Follower(<%= @user.followers.count %>)</b>
+
+<% if user_signed_in? && current_user != @user %>
+  <p><%= render 'follow_form' %></p>
+<% end %>
+
 <h3><%= @user.username %>'s Articles:</h3>
 
 <hr>

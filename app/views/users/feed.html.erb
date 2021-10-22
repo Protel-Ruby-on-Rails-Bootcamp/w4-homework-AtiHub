@@ -1,0 +1,24 @@
+<h1><%= current_user.username %>'s Feed</h1>
+
+<hr>
+
+<ul>
+    <% @articles.each do |article| %>
+        <li>
+            <% if user_signed_in? %>
+                <%= link_to article.title, article_path(article) %>, posted by <%= link_to article.user.username, profile_path(article.user) %>
+                <p>
+                    <strong>Content:</strong>
+                    <%= truncate article.content, length: 100 %>
+                </p>
+                <p>
+                    <strong>Votes:</strong>
+                    <%= article.vote_count %>
+                </p>
+            <% else %>
+                <%= article.title %>, posted by <%= article.user.email %>
+            <% end %>
+        </li>
+        <hr>
+    <% end %>
+</ul>

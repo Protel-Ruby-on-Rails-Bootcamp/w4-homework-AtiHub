@@ -13,5 +13,10 @@
   <%= @comment.user.username %>
 </p>
 
-<%= link_to 'Accept', accept_article_comment_path(@comment.article, @comment), method: :patch %>
+<% if @comment.accepted %>
+    Accepted! <%= link_to 'Deny', deny_article_comment_path(@comment.article, @comment), method: :patch %>
+<% else %>
+    <%= link_to 'Accept', accept_article_comment_path(@comment.article, @comment), method: :patch %>
+<% end %>
+
 <%= link_to 'Back', :back %>

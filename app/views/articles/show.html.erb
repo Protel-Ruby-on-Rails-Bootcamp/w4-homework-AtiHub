@@ -14,6 +14,15 @@
 
 <hr>
 
+<p>
+  <strong>Vote Count:</strong>
+  <%= @article.vote_count %>
+  <%= link_to 'Upvote', vote_article_path(@article, :type => 'upvote'), method: :patch %> | 
+  <%= link_to 'Downvote', vote_article_path(@article, :type => 'downvote'), method: :patch %>
+</p>
+
+<hr>
+
 <% if @comments.empty? %>
   There are no comments for this article.
   <hr>

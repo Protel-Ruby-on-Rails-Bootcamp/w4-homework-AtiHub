@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: %i[ show edit update destroy ]
+  before_action :set_article, only: %i[ show edit update destroy vote ]
   before_action :authenticate_user!
 
   # GET /articles or /articles.json
@@ -59,6 +59,13 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def vote
+    type = params[:type]
+    if type == 'upvote'; upvote
+    elsif type == 'downvote'; downvote; end
+    redirect_to @article
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_article
@@ -68,5 +75,13 @@ class ArticlesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def article_params
       params.require(:article).permit(:title, :content, :public)
+    end
+
+    def upvote
+      @article.increment!(:vote_count, 1)
+    end
+  
+    def downvote
+      @article.decrement!(:vote_count, 1)
     end
 end
