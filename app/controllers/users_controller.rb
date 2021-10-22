@@ -3,7 +3,8 @@ class UsersController < ApplicationController
 
   def profile
     @user = User.find(params[:user_id])
-    @articles = @user.articles.publics
+    @articles = @user.articles.publics.order('created_at DESC')
+    @comments = @user.comments.accepted.order('created_at DESC')
   end
 
   def feed

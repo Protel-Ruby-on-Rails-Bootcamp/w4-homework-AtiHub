@@ -14,7 +14,12 @@ class CommentsController < ApplicationController
     @comment = @article.comments.create(comment_params)
     @comment.update!(user: current_user)
 
-    redirect_to @article, notice: "Comment has successfully posted."
+    @comments_pending = current_user.comments.non_accepted.order('created_at DESC')
+
+    respond_to do |format|
+      format.html { redirect_to @article, notice: "Comment has successfully posted." }
+      format.js
+    end
   end
 
   def accept

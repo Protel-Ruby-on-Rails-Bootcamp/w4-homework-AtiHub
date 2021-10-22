@@ -4,8 +4,10 @@
 <p>Email: <%= @user.email %></p>
 <p>Member since: <%= @user.created_at.strftime("%Y-%m-%d") %></p>
 
-<b>Following(<%= @user.following.count %>)</b>
-<b>Follower(<%= @user.followers.count %>)</b>
+<div id='follow-info'>
+  <b>Following(<%= @user.following.count %>)</b>
+  <b>Follower(<%= @user.followers.count %>)</b>
+</div>
 
 <% if user_signed_in? && current_user != @user %>
   <p><%= render 'follow_form' %></p>
@@ -19,5 +21,14 @@
   <p><%=link_to article.title, article_path(article)%> by 
   <%= article.user.username %>, 
   <%= article.created_at.strftime("%d-%m-%Y") %></p>
+  <hr>
+<% end %>
+
+<h4><%= @user.username %>'s Comments:</h4>
+
+<% @comments.each do |comment| %>
+  <p><strong><%= comment.title %></strong>, to <%=link_to comment.article.title, article_path(comment.article)%></p>
+  <p><%= comment.content %></p>
+  <p><%= comment.created_at.strftime("%d-%m-%Y") %></p>
   <hr>
 <% end %>

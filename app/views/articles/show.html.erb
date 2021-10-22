@@ -15,10 +15,10 @@
 <hr>
 
 <p>
-  <strong>Vote Count:</strong>
-  <%= @article.vote_count %>
-  <%= link_to 'Upvote', vote_article_path(@article, :type => 'upvote'), method: :patch %> | 
-  <%= link_to 'Downvote', vote_article_path(@article, :type => 'downvote'), method: :patch %>
+  <strong>Votes:</strong>
+  <span id="vote-count"><%= @article.vote_count %></span>
+  <%= link_to 'Upvote', vote_article_path(@article, :type => 'upvote'), method: :patch, :remote => true %> | 
+  <%= link_to 'Downvote', vote_article_path(@article, :type => 'downvote'), method: :patch, :remote => true %>
 </p>
 
 <hr>
@@ -29,22 +29,19 @@
 <% else %>
   <h2>Comments</h2>
   <hr>
-  <% @comments.each do |comment| %>
-    <p>
-      <strong>Title:</strong> <%= comment.title %>, <strong>Content:</strong> <%= comment.content %>
-    </p>
-    <p>
-      <strong>Written By:</strong> <%= comment.user.username %>
-    </p>
-    <hr>
-  <% end %>
+
+  <div id = "comments-pending">
+    <%= render 'comments/comments_pending' %>
+  </div>
+
+  <%= render 'comments/comments' %>
 <% end %>
 
 <% unless @article.user == current_user%>
 
   <h3>Add a comment</h3>
 
-  <%= form_with model: [@article, @article.comments.build] do |form| %>
+  <%= form_with(model: [@article, @article.comments.build], local: false) do |form| %>
     <p>
       <%= form.label :title %>
       <%= form.text_field :title %>

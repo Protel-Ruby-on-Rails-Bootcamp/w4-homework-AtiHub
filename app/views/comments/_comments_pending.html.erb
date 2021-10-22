@@ -1,0 +1,9 @@
+<% @comments_pending.each do |comment| %>
+  <p>
+    <strong>Title:</strong> <%= comment.title %>, <strong>Content:</strong> <%= comment.content %>
+  </p>
+  <p>
+    <strong>Written By:</strong> <%= comment.user.username %>, waiting for approval by article owner.
+  </p>
+  <hr>
+<% end %>

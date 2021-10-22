@@ -11,6 +11,7 @@ class ArticlesController < ApplicationController
   # GET /articles/1 or /articles/1.json
   def show
     @comments = @article.comments.accepted
+    @comments_pending = current_user.comments.non_accepted.order('created_at DESC')
   end
 
   # GET /articles/new
@@ -63,7 +64,11 @@ class ArticlesController < ApplicationController
     type = params[:type]
     if type == 'upvote'; upvote
     elsif type == 'downvote'; downvote; end
-    redirect_to @article
+    
+    respond_to do |format|
+      format.html { redirect_to @article }
+      format.js
+    end
   end
 
   private

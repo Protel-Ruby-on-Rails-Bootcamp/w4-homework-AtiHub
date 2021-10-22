@@ -7,13 +7,13 @@ class Comment < ApplicationRecord
   scope :accepted, -> {where(accepted: true)} 
   scope :non_accepted, -> {where(accepted: false)} 
 
-  scope :old, -> {where('created_at')}
+  scope :old, -> {where("created_at < ?", 2.days.ago)}
 
   def accepted_default
     self.accepted = false
   end
 
-  def automatic_accept
-    Comment.non_accepted.update_all!(accepted: true)
+  def self.accept_old
+    Comment.old.non_accepted.update_all(accepted: true)
   end
 end

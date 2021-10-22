@@ -4,9 +4,7 @@
 
 <hr>
 
-<% @articles.each do |article| %>
-  <p><%=link_to article.title, article_path(article)%> by 
-  <%= link_to article.user.username, profile_path(article.user) %>, 
-  <%= article.created_at.strftime("%d-%m-%Y") %></p>
+<% @users.each do |user| %>
+  <p><%= link_to user.username, profile_path(user) %> has <%= user.articles.count %> articles.</p>
   <hr>
 <% end %>
