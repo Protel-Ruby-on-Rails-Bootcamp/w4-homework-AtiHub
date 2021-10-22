@@ -22,8 +22,8 @@
         <div><%= @user.username %></div>
         <div><%= @user.email %></div>
         <div><%= @user.created_at.strftime("%d-%m-%Y") %></div>
-        <div><%= @user.following.count %></div>
-        <div><%= @user.followers.count %></div>
+        <div id = "following-count"><%= @user.following.count %></div>
+        <div id = "followers-count"><%= @user.followers.count %></div>
       </div>
     </div>
 
