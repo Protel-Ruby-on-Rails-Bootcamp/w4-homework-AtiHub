@@ -14,6 +14,7 @@ class CommentsController < ApplicationController
     @comment = @article.comments.create(comment_params)
     @comment.update!(user: current_user)
 
+    @comments = @article.comments.accepted.order('created_at DESC')
     @comments_pending = current_user.comments.non_accepted.order('created_at DESC')
 
     respond_to do |format|
@@ -24,14 +25,18 @@ class CommentsController < ApplicationController
 
   def accept
     @comment = @article.comments.find(params[:id])
-    @comment.update!(accepted: true)
+    unless @comment.created_at < 2.days.ago
+      @comment.update!(accepted: true)
+    end
 
     redirect_to article_comments_path, notice: "Comment has successfully accepted."
   end
 
   def deny
     @comment = @article.comments.find(params[:id])
-    @comment.update!(accepted: false)
+    unless @comment.created_at < 2.days.ago
+      @comment.update!(accepted: false)
+    end
 
     redirect_to article_comments_path, notice: "Comment has successfully denied."
   end

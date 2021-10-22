@@ -10,7 +10,7 @@ class ArticlesController < ApplicationController
 
   # GET /articles/1 or /articles/1.json
   def show
-    @comments = @article.comments.accepted
+    @comments = @article.comments.accepted.order('created_at DESC')
     @comments_pending = current_user.comments.non_accepted.order('created_at DESC')
   end
 

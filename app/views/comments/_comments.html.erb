@@ -1,9 +1,15 @@
-<% @comments.each do |comment| %>
-  <p>
-    <strong>Title:</strong> <%= comment.title %>, <strong>Content:</strong> <%= comment.content %>
-  </p>
-  <p>
-    <strong>Written By:</strong> <%= comment.user.username %>
-  </p>
-  <hr>
-<% end %>
+<div class = "comments">
+  <% @comments.each do |comment| %>
+    <div class = "comment">
+      <div class = "comment-title"><b><%= comment.title %></b>, to&nbsp;<%=link_to comment.article.title, article_path(comment.article)%></div>
+      <div>
+        by <%= link_to comment.user.username, profile_path(comment.user), class: "comment-author" %>,
+        <%= comment.created_at.strftime("%H:%M%P %Y-%m-%d")%>
+      </div>
+      <div>
+        <strong>Content:</strong>
+        <%= truncate comment.content, length: 100 %>
+      </div>
+    </div>
+  <% end %>
+</div>

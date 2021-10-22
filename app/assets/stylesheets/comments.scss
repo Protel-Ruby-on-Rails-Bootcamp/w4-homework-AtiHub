@@ -1,3 +1,15 @@
 // Place all the styles related to the Comments controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.comments {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  .comment {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+  }
+}

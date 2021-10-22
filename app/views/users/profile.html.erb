@@ -1,34 +1,76 @@
-<h1><%= @user.username %>'s Profile</h1>
+<div class = "profile">
 
-<p>Username: <%= @user.username %></p>
-<p>Email: <%= @user.email %></p>
-<p>Member since: <%= @user.created_at.strftime("%Y-%m-%d") %></p>
+  <div class = "title"><%= @user.username %>'s Profile</div>
 
-<div id='follow-info'>
-  <b>Following(<%= @user.following.count %>)</b>
-  <b>Follower(<%= @user.followers.count %>)</b>
+  <% unless notice.nil? %>
+    <p id="notice" class = "notice"><%= notice %></p>
+  <% end %>
+
+  <div class = "content">
+    <div class = "sub-title">Info</div>
+
+    <div class = "user-info">
+      <div class = "left">
+        <div><b>Username:</b></div>
+        <div><b>Email:</b></div>
+        <div><b>Member since:</b></div>
+        <div><b>Following</b></div>
+        <div><b>Followers</b></div>
+      </div>
+
+      <div class = "right">
+        <div><%= @user.username %></div>
+        <div><%= @user.email %></div>
+        <div><%= @user.created_at.strftime("%d-%m-%Y") %></div>
+        <div><%= @user.following.count %></div>
+        <div><%= @user.followers.count %></div>
+      </div>
+    </div>
+
+    <% if user_signed_in? && current_user != @user %>
+      <p><%= render 'follow_form' %></p>
+    <% end %>
+
+    <div class = "sub-title">Articles:</div>
+
+    <div class = "articles">
+      <% @articles.each do |article| %>
+        <div class = "article">
+          <div>
+            <%= link_to article.title, article_path(article), class: "article-title" %>
+          </div>
+          <div>
+            by <%= link_to article.user.username, profile_path(article.user), class: "article-author" %>,
+            <%= article.created_at.strftime("%H:%M%P %Y-%m-%d")%>
+          </div>
+          <div>
+            <strong>Content:</strong>
+            <%= truncate article.content, length: 100 %>
+          </div>
+          <div>
+            <strong>Votes:</strong>
+            <%= article.vote_count %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class = "sub-title">Comments:</div>
+
+    <div class = "comments">
+      <% @comments.each do |comment| %>
+        <div class = "comment">
+          <div class = "comment-title"><b><%= comment.title %></b>, to&nbsp;<%=link_to comment.article.title, article_path(comment.article)%></div>
+          <div>
+            by <%= link_to comment.user.username, profile_path(comment.user), class: "comment-author" %>,
+            <%= comment.created_at.strftime("%H:%M%P %Y-%m-%d")%>
+          </div>
+          <div>
+            <strong>Content:</strong>
+            <%= truncate comment.content, length: 100 %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
-
-<% if user_signed_in? && current_user != @user %>
-  <p><%= render 'follow_form' %></p>
-<% end %>
-
-<h3><%= @user.username %>'s Articles:</h3>
-
-<hr>
-
-<% @articles.each do |article| %>
-  <p><%=link_to article.title, article_path(article)%> by 
-  <%= article.user.username %>, 
-  <%= article.created_at.strftime("%d-%m-%Y") %></p>
-  <hr>
-<% end %>
-
-<h4><%= @user.username %>'s Comments:</h4>
-
-<% @comments.each do |comment| %>
-  <p><strong><%= comment.title %></strong>, to <%=link_to comment.article.title, article_path(comment.article)%></p>
-  <p><%= comment.content %></p>
-  <p><%= comment.created_at.strftime("%d-%m-%Y") %></p>
-  <hr>
-<% end %>

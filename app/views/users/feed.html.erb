@@ -1,24 +1,39 @@
-<h1><%= current_user.username %>'s Feed</h1>
+<div class = "feed">
 
-<hr>
+  <div class = "title"><%= current_user.username %>'s Feed</div>
 
-<ul>
+  <% unless notice.nil? %>
+    <p id="notice" class = "notice"><%= notice %></p>
+  <% end %>
+
+  <% if @articles.empty? %>
+    <div class = "warning">You can follow others and their articles will be listed here!</div>
+  <% end %>
+
+  <div class = "articles">
     <% @articles.each do |article| %>
-        <li>
-            <% if user_signed_in? %>
-                <%= link_to article.title, article_path(article) %>, posted by <%= link_to article.user.username, profile_path(article.user) %>
-                <p>
-                    <strong>Content:</strong>
-                    <%= truncate article.content, length: 100 %>
-                </p>
-                <p>
-                    <strong>Votes:</strong>
-                    <%= article.vote_count %>
-                </p>
-            <% else %>
-                <%= article.title %>, posted by <%= article.user.email %>
-            <% end %>
-        </li>
-        <hr>
+      <div class = "article">
+        <% if user_signed_in? %>
+          <div>
+            <%= link_to article.title, article_path(article), class: "article-title" %>
+          </div>
+          <div>
+            by <%= link_to article.user.username, profile_path(article.user), class: "article-author" %>,
+            <%= article.created_at.strftime("%H:%M%P %d-%m-%Y")%>
+          </div>
+          <div>
+            <strong>Content:</strong>
+            <%= truncate article.content, length: 100 %>
+          </div>
+          <div>
+            <strong>Votes:</strong>
+            <%= article.vote_count %>
+          </div>
+        <% else %>
+          <%= article.title %>, posted by <%= article.user.email %>
+        <% end %>
+      </div>
     <% end %>
-</ul>
+  </div>
+
+</div>

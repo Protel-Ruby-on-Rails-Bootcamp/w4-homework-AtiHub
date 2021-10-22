@@ -13,3 +13,102 @@
  *= require_tree .
  *= require_self
  */
+
+* {
+   font-family: 'Courier New', monospace;
+   box-sizing: border-box;
+   font-size: 16px;
+}
+
+html {
+   width: 100%;
+   height: 100%;
+}
+
+body {
+   display: flex;
+   flex-flow: column nowrap;
+   justify-content: flex-start;
+   align-items: center;
+   width: 100%;
+   height: 100%;
+   padding: 0;
+   margin: 0;
+   background-color: #f2f2f2;
+}
+
+.notice {
+   padding: 6px 10px;
+   border-style: solid;
+   border-width: 1px;
+   border-color: green;
+}
+
+a, a:visited {
+   display: flex;
+   align-items: center;
+   text-decoration: none;
+   color: black;
+   text-align:center;
+}
+
+a:hover {
+   background-color: #404040;
+   color: white
+}
+
+.header {
+   display: flex;
+   flex-flow: row nowrap;
+   justify-content: flex-start;
+   align-items: center;
+   width: 100%;
+   min-height: 80px;
+   padding: 0;
+   margin: 0;
+   border-style: solid;
+   border-width: 1px 0 2px 0;
+   border-color: black;
+}
+
+.header .home-button {
+   font-size: 40px;
+   background-color: #404040;
+   color: white;
+   height: 100%;
+   padding: 0 20px;
+   border-style: solid;
+   border-width: 0 1px 0 0;
+   border-color: #404040;
+}
+
+.header .nav-buttons {
+   display: flex;
+   flex-flow: row nowrap;
+   justify-content: flex-start;
+   align-items: center;
+   width: 100%;
+   height: 100%;
+}
+
+.header .user {
+   margin-left: auto;
+   display: flex;
+   flex-flow: row nowrap;
+   justify-content: flex-start;
+   align-items: center;
+   height: 100%;
+   white-space: nowrap
+}
+
+a.nav-button {
+   height: 100%;
+   padding: 0 20px;
+   border-style: solid;
+   border-width: 0 1px 0 0;
+   border-color: #404040;
+}
+
+.header .user span  {
+   margin: 0 10px;
+}

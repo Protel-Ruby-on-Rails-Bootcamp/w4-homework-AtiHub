@@ -1,60 +1,70 @@
-<p id="notice"><%= notice %></p>
+<div class = show-article>
+  <div class = "title"><%= @article.title %></div>
 
-<h1><%= @article.title %></h1>
-
-<p>
-  <strong>Author:</strong>
-  <%= @article.user.username %>
-</p>
-
-<p>
-  <strong>Content:</strong>
-  <%= @article.content %>
-</p>
-
-<hr>
-
-<p>
-  <strong>Votes:</strong>
-  <span id="vote-count"><%= @article.vote_count %></span>
-  <%= link_to 'Upvote', vote_article_path(@article, :type => 'upvote'), method: :patch, :remote => true %> | 
-  <%= link_to 'Downvote', vote_article_path(@article, :type => 'downvote'), method: :patch, :remote => true %>
-</p>
-
-<hr>
-
-<% if @comments.empty? %>
-  There are no comments for this article.
-  <hr>
-<% else %>
-  <h2>Comments</h2>
-  <hr>
-
-  <div id = "comments-pending">
-    <%= render 'comments/comments_pending' %>
-  </div>
-
-  <%= render 'comments/comments' %>
-<% end %>
-
-<% unless @article.user == current_user%>
-
-  <h3>Add a comment</h3>
-
-  <%= form_with(model: [@article, @article.comments.build], local: false) do |form| %>
-    <p>
-      <%= form.label :title %>
-      <%= form.text_field :title %>
-    </p>
-    <p>
-      <%= form.label :content %>
-      <%= form.text_area :content %>
-    </p>
-    <p>
-      <%= form.submit %>
-    </p>
+  <% unless notice.nil? %>
+    <p id="notice" class = "notice"><%= notice %></p>
   <% end %>
+  <div class = "content">
+    <div class = "sub-title">Info</div>
 
-<% end %>
+    <div class = "article-info">
+      <div class = "left">
+        <div><b>Title:</b></div>
+        <div><b>Author:</b></div>
+        <div><b>Post Date:</b></div>
+      </div>
 
-<%= link_to 'Back', :back %>
+      <div class = "right">
+        <div><%= @article.title %></div>
+        <div><%= @article.user.username %></div>
+        <div><%= @article.created_at.strftime("%d-%m-%Y") %></div>
+      </div>
+    </div>
+
+    <div class = "vote">
+      <%= link_to 'Upvote', vote_article_path(@article, :type => 'upvote'), method: :patch, :remote => true %>
+      <div id="vote-count"><%= @article.vote_count %></div>
+      <%= link_to 'Downvote', vote_article_path(@article, :type => 'downvote'), method: :patch, :remote => true %>
+    </div>
+
+    <div class = "article-content">
+      <%= @article.content %>
+    </div>
+
+    <div class = "sub-title">Comments</div>
+
+    
+    <div id = "no-comments">
+      <%= render 'comments/no_comments' %>
+    </div>
+    
+
+    <div id = "comments-pending">
+      <%= render 'comments/comments_pending' %>
+    </div>
+
+    <%= render 'comments/comments' %>
+
+    <% unless @article.user == current_user%>
+
+      <div class = "sub-title">Add a comment</div>
+
+      <%= form_with(model: [@article, @article.comments.build], local: false) do |form| %>
+        <p>
+          <%= form.label :title %>
+          <%= form.text_field :title %>
+        </p>
+        <p>
+          <%= form.label :content %>
+          <%= form.text_area :content %>
+        </p>
+        <p>
+          <%= form.submit %>
+        </p>
+      <% end %>
+    <% end %>
+
+  <%= link_to 'Back', :back %>
+
+  </div>
+</div>

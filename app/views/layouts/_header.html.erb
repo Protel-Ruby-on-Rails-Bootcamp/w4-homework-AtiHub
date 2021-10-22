@@ -1,0 +1,19 @@
+<div class = "header">
+  <%= link_to 'Mediumish', root_path, class: "home-button" %>
+
+  <% if user_signed_in? %>
+    <div class = "nav-buttons">
+      <%= link_to 'Feed', feed_path(current_user), class: "nav-button" %>
+      <%= link_to 'Profile', profile_path(current_user), class: "nav-button" %>
+      <%= link_to 'Dashboard', dashboard_path, class: "nav-button" %>
+    </div>
+    <div class = "user">
+      <span>Logged in as <%= current_user.email%></span> <%= link_to 'LogOut', destroy_user_session_path, method: :delete, class: "nav-button" %>
+    </div>
+  <% else %>
+    <div class = "user">
+      <%= link_to 'Sign Up', new_user_registration_path, class: "nav-button" %>
+      <%= link_to 'LogIn', new_user_session_path, class: "nav-button" %>
+    </div>
+  <% end %>
+</div>

@@ -1,10 +1,24 @@
-<h1>Mediumish Home Page</h1>
+<div class = "main">
 
-<p id="notice"><%= notice %></p>
+  <div class = "title">Home Page</div>
 
-<hr>
+  <% unless notice.nil? %>
+    <p id="notice" class = "notice"><%= notice %></p>
+  <% end %>
 
-<% @users.each do |user| %>
-  <p><%= link_to user.username, profile_path(user) %> has <%= user.articles.count %> articles.</p>
-  <hr>
-<% end %>
+  <% if user_signed_in? %>
+    <div class = users>
+      <div class = "users-title">
+        You can check out known users' profiles below.
+      </div>
+      <% @users.each do |user| %>
+        <div class = "user">
+          <%= link_to user.username, profile_path(user) %> <span> <%= user.articles.count %> articles.</span>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class = "please">Hello! Please LogIn/SignUp to access website's features.</div>
+  <% end %>
+
+</div>
