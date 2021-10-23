@@ -13,7 +13,7 @@
       </div>
       <% @users.each do |user| %>
         <div class = "user">
-          <%= link_to user.username, profile_path(user) %> <span> <%= user.articles.count %> articles.</span>
+          <%= link_to user.username, profile_path(user) %> <span> <%= user.articles.publics.count %> articles.</span>
         </div>
       <% end %>
     </div>
