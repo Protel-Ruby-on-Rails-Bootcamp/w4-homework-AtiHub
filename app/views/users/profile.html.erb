@@ -29,6 +29,8 @@
 
     <% if user_signed_in? && current_user != @user %>
       <p><%= render 'follow_form' %></p>
+    <% else %>
+      <%= link_to 'Edit Profile', edit_user_registration_path %>
     <% end %>
 
     <div class = "sub-title">Articles:</div>

@@ -19,4 +19,6 @@
     <%= link_to 'Accept', accept_article_comment_path(@comment.article, @comment), method: :patch %>
 <% end %>
 
+<%= link_to 'Delete', article_comment_path(@comment.article, @comment), method: :delete %>
+
 <%= link_to 'Back', :back %>

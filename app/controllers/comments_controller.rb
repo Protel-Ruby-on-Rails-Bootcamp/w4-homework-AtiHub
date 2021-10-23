@@ -23,6 +23,13 @@ class CommentsController < ApplicationController
     end
   end
 
+  def destroy
+    @comment = @article.comments.find(params[:id])
+    @comment.destroy
+
+    redirect_to article_comments_path(@article), notice: "Comment has successfully deleted."
+  end
+
   def accept
     @comment = @article.comments.find(params[:id])
     unless @comment.created_at < 2.days.ago
