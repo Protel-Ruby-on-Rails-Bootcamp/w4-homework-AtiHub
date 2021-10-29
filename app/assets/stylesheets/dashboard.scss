@@ -38,6 +38,9 @@ div.dashboard {
         border: 1px solid black;
         padding: 8px;
       }
+      td.article-content {
+        word-break:break-all;
+      }
       tr:hover {background-color: #ddd;}
       th {
         padding-top: 12px;
@@ -49,7 +52,7 @@ div.dashboard {
       }
     }
   
-    .new-article {
+    .add-article {
       display: flex;
       width: 100%;
     }

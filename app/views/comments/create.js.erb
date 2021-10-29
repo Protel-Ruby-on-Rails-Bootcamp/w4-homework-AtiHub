@@ -1,2 +1,3 @@
 $('#comments-pending').html("<%= escape_javascript(render('comments/comments_pending')) %>")
 $('#no-comments').html("<%= escape_javascript(render('comments/no_comments')) %>")
+$('#new-comment-form')[0].reset()

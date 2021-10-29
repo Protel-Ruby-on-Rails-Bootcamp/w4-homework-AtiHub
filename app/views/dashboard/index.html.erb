@@ -5,7 +5,6 @@
     <p id="notice" class = "notice"><%= notice %></p>
   <% end %>
 
-
   <div class = "content">
     <table class = "table">
       <tr>
@@ -19,7 +18,7 @@
       <% @articles.each do |article| %>
         <tr>
           <td><%= article.title %></td>
-          <td><%= article.content.truncate(100) %></td>
+          <td class = "article-content"><%= article.content.truncate(100) %></td>
           <td><%= article.public %></td>
           <td><%= article.user.username %></td>
           <td><%= link_to "#{article.comments.count} Comments", article_comments_path(article) %></td>
@@ -30,7 +29,7 @@
       <% end %>
     </table>
 
-    <div class = "new-article">
+    <div class = "add-article">
       <%= link_to 'Add Article', new_article_path %>
     </div>
 

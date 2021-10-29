@@ -1,5 +1,14 @@
-<h1>New Article</h1>
+<div class = new-article>
+  <div class = "title">New Article</div>
 
-<%= render 'form', article: @article %>
-
-<%= link_to 'Back', dashboard_path %>
+  <% unless notice.nil? %>
+    <p id="notice" class = "notice"><%= notice %></p>
+  <% end %>
+  <div class = "content">
+    <div class = "sub-title">Enter article information below</div>
+    <div class = "edit">
+      <%= render 'form', article: @article %>
+      <%= link_to 'Back', dashboard_path %>
+    </div>
+  </div>
+</div>
