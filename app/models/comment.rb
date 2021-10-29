@@ -12,6 +12,6 @@ class Comment < ApplicationRecord
   scope :not_old, -> {where("created_at >= ?", 2.days.ago)}
 
   def self.accept_old
-    self.pending.old.update_all(status: :denied)
+    self.pending.old.update_all(status: :accepted)
   end
 end
