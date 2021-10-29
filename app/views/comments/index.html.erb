@@ -5,13 +5,7 @@
 <div class = "comments">
   <% @comments.each do |comment| %>
     <div class = "comment">
-        <%= comment.created_at.strftime("%H:%M%P %d-%m-%Y")%>
-        <%= comment.user.username %> wrote a comment to this article.
-        <% if comment.accepted %>
-          Accepted! <%= link_to 'Click here to inspect.', article_comment_path(@article, comment) %>
-        <% else %>
-          <%= link_to 'Click here to accept it.', article_comment_path(@article, comment) %>
-        <% end %>
+        <%= link_to "#{comment.created_at.strftime("%H:%M%P %d-%m-%Y")}, by #{comment.user.username}, #{comment.title}, #{comment.status}", article_comment_path(@article, comment) %>
     </div>
   <% end %>
 </div>

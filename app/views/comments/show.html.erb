@@ -13,10 +13,18 @@
   <%= @comment.user.username %>
 </p>
 
-<% if @comment.accepted %>
-    Accepted! <%= link_to 'Deny', deny_article_comment_path(@comment.article, @comment), method: :patch %>
-<% else %>
+<% unless @comment.created_at < 2.days.ago%>
+  <% if @comment.accepted? %>
+    Accepted!
+    <%= link_to 'Deny', deny_article_comment_path(@comment.article, @comment), method: :patch %>
+  <% elsif @comment.denied? %>
+    Denied!
     <%= link_to 'Accept', accept_article_comment_path(@comment.article, @comment), method: :patch %>
+  <% else %>
+    Pending!
+    <%= link_to 'Accept', accept_article_comment_path(@comment.article, @comment), method: :patch %>
+    <%= link_to 'Deny', deny_article_comment_path(@comment.article, @comment), method: :patch %>
+  <% end %>
 <% end %>
 
 <%= link_to 'Delete', article_comment_path(@comment.article, @comment), method: :delete %>

@@ -3,6 +3,6 @@ class DashboardController < ApplicationController
   
   def index
     @articles = current_user.articles
-    @comments = Comment.where("article_id IN (?)", current_user.article_ids).non_accepted
+    @comments = Comment.where("article_id IN (?)", current_user.article_ids).pending
   end
 end

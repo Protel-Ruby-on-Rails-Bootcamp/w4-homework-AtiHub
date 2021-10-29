@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @comments = @article.comments
+    @comments = @article.comments.order('created_at DESC')
   end
   
   def show
@@ -15,7 +15,7 @@ class CommentsController < ApplicationController
     @comment.update!(user: current_user)
 
     @comments = @article.comments.accepted.order('created_at DESC')
-    @comments_pending = @article.comments.where(user: current_user).non_accepted.order('created_at DESC')
+    @comments_pending = @article.comments.where(user: current_user).pending.order('created_at DESC')
 
     respond_to do |format|
       format.html { redirect_to @article, notice: "Comment has successfully posted." }
@@ -33,7 +33,7 @@ class CommentsController < ApplicationController
   def accept
     @comment = @article.comments.find(params[:id])
     unless @comment.created_at < 2.days.ago
-      @comment.update!(accepted: true)
+      @comment.accepted!
     end
 
     redirect_to article_comments_path, notice: "Comment has successfully accepted."
@@ -42,7 +42,7 @@ class CommentsController < ApplicationController
   def deny
     @comment = @article.comments.find(params[:id])
     unless @comment.created_at < 2.days.ago
-      @comment.update!(accepted: false)
+      @comment.denied!
     end
 
     redirect_to article_comments_path, notice: "Comment has successfully denied."

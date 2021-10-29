@@ -1,19 +1,17 @@
 class Comment < ApplicationRecord
-  before_create :accepted_default
-
   belongs_to :article
   belongs_to :user
 
-  scope :accepted, -> {where(accepted: true)} 
-  scope :non_accepted, -> {where(accepted: false)} 
+  enum status: {
+    pending: 0,
+    accepted: 1,
+    denied: 2
+  }
 
   scope :old, -> {where("created_at < ?", 2.days.ago)}
-
-  def accepted_default
-    self.accepted = false
-  end
+  scope :not_old, -> {where("created_at >= ?", 2.days.ago)}
 
   def self.accept_old
-    Comment.old.non_accepted.update_all(accepted: true)
+    self.pending.old.update_all(status: :denied)
   end
 end
